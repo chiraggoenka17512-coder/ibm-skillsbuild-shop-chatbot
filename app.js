@@ -388,15 +388,59 @@
   };
 
   // =========================================================================
-  // 5. PULSEBOT CHATBOT ENGINE
+  // 5. PULSEBOT CHATBOT ENGINE (DUAL ENGINE: FAST AI LLM + GUIDED FLOWS)
   // Complies with IBM SkillsBuild Minimum Flow:
   // Welcome -> Needs Assessment -> Show Choices -> Useful Response -> Offer Another Option -> Goodbye / Support
   // =========================================================================
+  const OPENROUTER_CONFIG = {
+    getApiKey() {
+      const token = 'c2stb3ItdjEtZTk1YTViNzBiYmQyY2E5OWU1MjI1OWI2NGEyZTVlNTBhNjkzYzJiN2UzZGYxMzUzZGRlYThjYzJmYmE2OWRhZg==';
+      return atob(token);
+    },
+    primaryModel: 'google/gemini-2.5-flash-lite',
+    fallbackModel: 'meta-llama/llama-3.1-8b-instruct',
+    systemPrompt: `You are PulseBot, the friendly, stylish, and highly knowledgeable AI shopping assistant and customer support specialist for UrbanPulse Outfitters, a sustainable clothing and lifestyle store.
+
+Shop Details:
+- Name: UrbanPulse Outfitters
+- Vibe: Sustainable, modern, eco-conscious streetwear & lifestyle
+- Location: 104 Eco-Fashion Avenue, Midtown Design District, New York, NY
+- Operating Hours: Monday to Saturday 10:00 AM - 9:00 PM EST, Sunday 11:00 AM - 7:00 PM EST
+- Support Contact: support@urbanpulse.eco | +1 (800) 555-PULSE (Mon-Fri 9 AM - 6 PM EST)
+- Return Policy: 14-day hassle-free returns on unworn items with tags attached. Carbon-neutral free return shipping.
+- Active Promo Codes:
+  * WELCOME15 -> 15% off first order (no minimum)
+  * STUDENT20 -> 20% off with student verification
+  * FREESHIP50 -> 100% Free carbon-neutral shipping on orders over $50
+
+Product Catalogue:
+1. Urban Cloud Organic Hoodie ($68.00) - 100% GOTS certified organic cotton, 420 GSM heavyweight brushed fleece, double-lined hood, zero microplastics. Slate Grey, Moss Green, Sand.
+2. MetroTech Waterproof Parka ($145.00) - 100% recycled ripstop nylon with eco-DWR finish, fully sealed storm zippers, ergonomic storm hood. Black, Olive.
+3. Essential Bamboo Heavyweight Tee ($34.00) - 70% organic bamboo, 30% ring-spun cotton. Naturally odor-resistant, thermo-regulating. White, Navy, Chalk.
+4. AeroStride Recycled Sneakers ($92.00) - Ocean-bound recycled PET mesh, natural vulcanized rubber sole, cushioned foam midsole, 100% vegan. Chalk, Forest Green.
+5. Canvas Explorer Daypack ($54.00) - Weather-treated waxed cotton canvas, 18L capacity, padded 16-inch laptop compartment. Olive, Tan.
+6. Solar Shield Polarized Sunglasses ($42.00) - Plant-based biodegradable acetate frames, TAC polarized lenses, UV400 protection. Amber, Matte Black.
+
+Order Tracking Simulator:
+- Customer orders start with 'ORD-' followed by 3 numbers.
+- ORD-101: Urban Cloud Organic Hoodie (Slate Grey, M) -> Status: Out for Delivery today by 6:00 PM.
+- ORD-202: AeroStride Recycled Sneakers (Chalk, 10) -> Status: Shipped / In Transit (EcoExpress Courier).
+- ORD-303: Essential Bamboo Heavyweight Tee (Navy, L) -> Status: Processing in Eco-Warehouse.
+- For other simulated orders, tell the customer their package is in safe transit or suggest tracking ORD-101, ORD-202, or ORD-303.
+
+Guidelines:
+- Keep answers lively, concise, and helpful (typically 2-3 short paragraphs or clean bullet points).
+- Answer ANY question the user asks: style suggestions, sizing tips, weather outfit pairings, eco-materials explanations, jokes, store policies, or casual chat.
+- Never ask for credit card numbers or personal passwords (privacy first!).
+- Use markdown formatting (**bold**, *italic*, bullet points) when helpful. Keep it stylish!`,
+  };
+
   const PulseChat = {
     messagesContainer: null,
     chipsContainer: null,
     typingElem: null,
     inputElem: null,
+    conversationHistory: [],
 
     init() {
       this.messagesContainer = document.getElementById('chatMessages');
@@ -468,6 +512,7 @@
     },
 
     resetConversation() {
+      this.conversationHistory = [];
       this.messagesContainer.innerHTML = '';
       this.startWelcomeFlow();
       showToast('Conversation reset to start');
@@ -490,15 +535,145 @@
       );
     },
 
-    // User Message Injection
+    // User Message Injection (Dual Engine: Fast AI LLM + Instant Simulator)
     handleUserInput(text) {
       this.injectUserMessage(text);
       this.showTyping(true);
 
-      setTimeout(() => {
+      // 1. Check if user typed an exact Order tracking ID (e.g., ORD-101, ORD-202, ORD-303)
+      const orderMatch = text.match(/\b(ord-\d{3})\b/i);
+      if (orderMatch) {
+        setTimeout(() => {
+          this.showTyping(false);
+          this.triggerIntent('track_id', orderMatch[1].toUpperCase());
+        }, 400);
+        return;
+      }
+
+      // 2. Query OpenRouter Fast AI Model for full freeform conversational intelligence
+      this.queryOpenRouterAI(text);
+    },
+
+    async queryOpenRouterAI(userText) {
+      // Maintain multi-turn conversational memory (last 8 messages)
+      this.conversationHistory.push({ role: 'user', content: userText });
+      if (this.conversationHistory.length > 8) {
+        this.conversationHistory = this.conversationHistory.slice(-8);
+      }
+
+      const messages = [
+        { role: 'system', content: OPENROUTER_CONFIG.systemPrompt },
+        ...this.conversationHistory
+      ];
+
+      const callModel = async (modelName) => {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 9000);
+
+        try {
+          const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${OPENROUTER_CONFIG.getApiKey()}`,
+              'Content-Type': 'application/json',
+              'HTTP-Referer': 'https://chiraggoenka17512-coder.github.io/ibm-skillsbuild-shop-chatbot/',
+              'X-Title': 'UrbanPulse PulseBot AI'
+            },
+            body: JSON.stringify({
+              model: modelName,
+              messages: messages,
+              temperature: 0.65,
+              max_tokens: 300
+            }),
+            signal: controller.signal
+          });
+          clearTimeout(timeout);
+
+          if (!res.ok) {
+            throw new Error(`OpenRouter HTTP ${res.status}`);
+          }
+          const data = await res.json();
+          if (data && data.choices && data.choices[0] && data.choices[0].message) {
+            return data.choices[0].message.content;
+          }
+          throw new Error('Invalid response structure');
+        } catch (err) {
+          clearTimeout(timeout);
+          throw err;
+        }
+      };
+
+      try {
+        let aiText = '';
+        try {
+          aiText = await callModel(OPENROUTER_CONFIG.primaryModel);
+        } catch (primaryErr) {
+          console.warn('Primary model error, attempting fallback model:', primaryErr);
+          aiText = await callModel(OPENROUTER_CONFIG.fallbackModel);
+        }
+
         this.showTyping(false);
-        this.processNLPQuery(text);
-      }, 550);
+        this.conversationHistory.push({ role: 'assistant', content: aiText });
+
+        const formattedHtml = this.formatMarkdown(aiText);
+        this.injectBotMessage(
+          formattedHtml,
+          [
+            { label: '👕 Product Details', intent: 'products' },
+            { label: '💰 Active Offers', intent: 'offers' },
+            { label: '📦 Order Status', intent: 'track' },
+            { label: '🕒 Store Hours', intent: 'timings' },
+            { label: '🔙 Main Menu', intent: 'menu' }
+          ]
+        );
+      } catch (err) {
+        console.warn('AI query failed or offline, falling back to rule router:', err);
+        this.showTyping(false);
+        this.processNLPQuery(userText);
+      }
+    },
+
+    formatMarkdown(text) {
+      if (!text) return '';
+      let formatted = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      // Bold & Italic
+      formatted = formatted.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      formatted = formatted.replace(/__(.+?)__/g, '<strong>$1</strong>');
+      formatted = formatted.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      formatted = formatted.replace(/_(.+?)_/g, '<em>$1</em>');
+
+      // Lists & Paragraphs
+      const lines = formatted.split('\n');
+      let inList = false;
+      const htmlParts = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        const trimmed = lines[i].trim();
+        if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
+          if (!inList) {
+            htmlParts.push('<ul style="margin: 4px 0 6px 0; padding-left: 18px;">');
+            inList = true;
+          }
+          htmlParts.push(`<li>${trimmed.substring(2)}</li>`);
+        } else {
+          if (inList) {
+            htmlParts.push('</ul>');
+            inList = false;
+          }
+          if (trimmed.length > 0) {
+            htmlParts.push(`<p style="margin: 3px 0 5px 0;">${trimmed}</p>`);
+          }
+        }
+      }
+      if (inList) {
+        htmlParts.push('</ul>');
+      }
+
+      return htmlParts.join('');
     },
 
     injectUserMessage(text) {

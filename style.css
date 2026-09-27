@@ -1608,6 +1608,23 @@ section {
   border-top-right-radius: 4px;
 }
 
+.msg-bubble p {
+  margin: 0 0 6px 0;
+}
+
+.msg-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.msg-bubble ul {
+  margin: 4px 0 6px 0;
+  padding-left: 18px;
+}
+
+.msg-bubble li {
+  margin-bottom: 3px;
+}
+
 .msg-time {
   font-size: 0.6875rem;
   color: var(--text-muted);
