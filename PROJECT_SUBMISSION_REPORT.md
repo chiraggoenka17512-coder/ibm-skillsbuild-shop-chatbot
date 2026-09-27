@@ -5,7 +5,7 @@
 ---
 
 ### Student & Submission Information
-- **Student Name:** Chirag
+- **Student Name:** Chirag Goenka
 - **Class and Section:** Grade 9 A
 - **School Name:** Lakshmipat Singhania Academy
 - **Email ID:** chiraggoenka17512@gmail.com
@@ -170,5 +170,5 @@ shop-assistant-chatbot/
 3. **I have submitted my completed activity using the submission QR code:**  
    ☑ **Yes** &nbsp;&nbsp;&nbsp;&nbsp; ☐ No
 
-- **Student Signature:** *Chirag*
+- **Student Signature:** *Chirag Goenka*
 - **Submission Date:** *September 27, 2026*

@@ -3,7 +3,7 @@
 
 This repository contains the complete implementation for the **IBM SkillsBuild Project-Based Activity: Shop Assistant Chatbot with Website**.
 
-- **Student Name:** Chirag
+- **Student Name:** Chirag Goenka
 - **Class & Section:** Grade 9 A
 - **School:** Lakshmipat Singhania Academy
 - **Fictional Shop:** UrbanPulse Outfitters (Sustainable Clothing & Lifestyle)
