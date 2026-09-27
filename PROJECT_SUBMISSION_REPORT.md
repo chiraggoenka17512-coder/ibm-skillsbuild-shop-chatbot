@@ -6,15 +6,16 @@
 
 ### Student & Submission Information
 - **Student Name:** Chirag
-- **Class and Section:** Grade 10 — Computer Science / AI Applications
+- **Class and Section:** Grade 9 A
+- **School Name:** Lakshmipat Singhania Academy
+- **Email ID:** chiraggoenka17512@gmail.com
 - **Activity Title:** Shop Assistant Chatbot with Website
 - **Platform:** IBM SkillsBuild & Learning Links Foundation
 - **Fictional Shop Name:** UrbanPulse Outfitters (Sustainable Clothing & Lifestyle Store)
 - **Chatbot Name:** PulseBot (AI Shop Assistant & Support Agent)
 - **Project Location:** `C:\Users\Chirag\.gemini\antigravity-ide\scratch\shop-assistant-chatbot`
-- **Live Website URL:** https://b8a2ad3a02396a.lhr.life
-- **Direct Chatbot Access URL:** https://b8a2ad3a02396a.lhr.life/chatbot.html
-- **Local Fallback URL:** http://localhost:8080
+- **Live Website URL:** https://chiraggoenka17512-coder.github.io/ibm-skillsbuild-shop-chatbot/
+- **Direct Chatbot Access URL:** https://chiraggoenka17512-coder.github.io/ibm-skillsbuild-shop-chatbot/chatbot.html
 
 ---
 
