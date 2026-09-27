@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IBM SkillsBuild - Project Submission Report - Shop Assistant Chatbot</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --border: #e2e8f0;
+      --success: #10b981;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text);
+      background: #e2e8f0;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    .paper {
+      background: var(--bg);
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 50px 60px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border-radius: 8px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .org-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .doc-main-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+      margin-top: 4px;
+    }
+
+    .doc-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    .meta-box {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 24px;
+      margin-bottom: 30px;
+      font-size: 0.9rem;
+    }
+
+    .meta-box strong {
+      color: var(--primary-dark);
+    }
+
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      border-left: 4px solid var(--primary);
+      padding-left: 12px;
+      margin: 28px 0 14px 0;
+    }
+
+    p { margin-bottom: 12px; font-size: 0.95rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 0.88rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-alt);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .badge-pass {
+      background: #dcfce7;
+      color: #15803d;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+    }
+
+    .flow-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .flow-step-box {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .flow-step-box.active {
+      border-color: var(--primary);
+      background: #f0f9ff;
+      color: var(--primary-dark);
+    }
+
+    .declaration-card {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+
+    .declaration-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      color: #166534;
+      margin-bottom: 12px;
+    }
+
+    .decl-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #14532d;
+    }
+
+    .sign-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px dashed #86efac;
+      font-size: 0.9rem;
+    }
+
+    .print-btn-bar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .btn-print {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    @media print {
+      body { background: #ffffff; padding: 0; }
+      .paper { box-shadow: none; padding: 20px; max-width: 100%; }
+      .print-btn-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-btn-bar">
+    <button class="btn-print" onclick="window.print()">🖨️ Print or Save as PDF</button>
+  </div>
+
+  <main class="paper">
+    <div class="header-bar">
+      <div>
+        <div class="org-title">IBM SkillsBuild | Project-Based Activity</div>
+        <h1 class="doc-main-title">Shop Assistant Chatbot with Website</h1>
+        <div class="doc-sub">Design a simple customer-support chatbot for a fictional shop</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-weight: 800; font-size: 1.2rem; color: #0284c7;">UrbanPulse</div>
+        <div style="font-size: 0.78rem; color: #64748b;">Outfitters & Lifestyle</div>
+      </div>
+    </div>
+
+    <div class="meta-box">
+      <div><strong>Student Name:</strong> Chirag</div>
+      <div><strong>Class and Section:</strong> Grade 10 — Computer Science</div>
+      <div><strong>Fictional Shop:</strong> UrbanPulse Outfitters</div>
+      <div><strong>Chatbot Name:</strong> PulseBot Assistant</div>
+      <div><strong>Activity Goal:</strong> E-commerce Customer Support</div>
+      <div><strong>Date of Submission:</strong> September 27, 2026</div>
+    </div>
+
+    <h2>1. Project Task & Objectives</h2>
+    <p>
+      As per the IBM SkillsBuild Activity guidelines, this project demonstrates a fully functional, ethical customer-support chatbot embedded inside a responsive modern shop webpage. The chatbot welcomes shoppers, helps answer common inquiries, guides product selection, offers promotional discounts, checks store opening hours, simulates package tracking, and connects customers with human support without collecting any sensitive personal data.
+    </p>
+
+    <h2>2. Minimum Chatbot Flow Implementation</h2>
+    <p>The conversation lifecycle is structured according to the standard IBM 6-step flow:</p>
+    <div class="flow-steps-grid">
+      <div class="flow-step-box active">1. Welcome</div>
+      <div class="flow-step-box">2. Ask Needs</div>
+      <div class="flow-step-box active">3. Show Choices</div>
+      <div class="flow-step-box">4. Useful Info</div>
+      <div class="flow-step-box active">5. Next Option</div>
+      <div class="flow-step-box">6. Support/Bye</div>
+    </div>
+
+    <h2>3. The 5 Core Conversation Paths</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Path</th>
+          <th>User Needs & Queries</th>
+          <th>PulseBot Response & Interactive Features</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Product Information</strong></td>
+          <td>Clothing materials, sizing guide, organic certifications, best-sellers</td>
+          <td>Presents organic cotton details, fit tips, interactive chest/waist measurement table, and direct "Add to Bag" buttons.</td>
+        </tr>
+        <tr>
+          <td><strong>2. Store Timings</strong></td>
+          <td>Operating hours, weekend schedule, holidays, store location</td>
+          <td>Details Mon–Fri 10am–9pm, Saturday extended hours (10am–10pm), Sunday hours, and Flagship Gate 3 pickup directions.</td>
+        </tr>
+        <tr>
+          <td><strong>3. Offers & Deals</strong></td>
+          <td>Discount coupons, student promotions, first-order savings</td>
+          <td>Provides verified promo codes: <code>WELCOME15</code> (15% off), <code>STUDENT20</code> (20% student discount), <code>FREESHIP50</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>4. Order & Delivery Help</strong></td>
+          <td>Track package, delivery speeds, 14-day return & exchange policy</td>
+          <td>Includes a simulated live tracking lookup (<code>ORD-101</code>, <code>ORD-202</code>, <code>ORD-303</code>) with an animated progress bar and returns rules.</td>
+        </tr>
+        <tr>
+          <td><strong>5. Contact Support</strong></td>
+          <td>Escalate to human associate, customer care helpline, email</td>
+          <td>Provides toll-free line <code>1-800-785-PULSE</code>, official support email, and generates a simulated callback ticket ID (<code>#TICK-XXXX</code>).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>4. Testing & Verification Matrix</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Scenario</th>
+          <th>Action / Input</th>
+          <th>Observed Bot Behavior</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Initial Greeting</td>
+          <td>Open Chat widget</td>
+          <td>Friendly welcome bubble with 5 quick-reply chips</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>Schedule Inquiry</td>
+          <td>Click "Store Timings"</td>
+          <td>Weekday, Saturday, and Sunday hours listed clearly</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>Coupon Application</td>
+          <td>Click "WELCOME15"</td>
+          <td>Applies 15% discount to cart subtotal automatically</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>Order Tracking Lookup</td>
+          <td>Type "Track ORD-101"</td>
+          <td>Renders visual timeline showing "Out for Delivery"</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+        <tr>
+          <td>Privacy Compliance</td>
+          <td>Inspect input & storage</td>
+          <td>Zero passwords, credit cards, or personal data collected</td>
+          <td><span class="badge-pass">PASS</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="declaration-card">
+      <h3>STUDENT DECLARATION</h3>
+      <div class="decl-row">
+        <span>☑ 1. I have registered on IBM SkillsBuild. [Yes]</span>
+      </div>
+      <div class="decl-row">
+        <span>☑ 2. I have completed the given project-based activity. [Yes]</span>
+      </div>
+      <div class="decl-row">
+        <span>☑ 3. I have submitted my completed activity using the submission QR code. [Yes]</span>
+      </div>
+      <div class="sign-row">
+        <div><strong>Student Signature:</strong> <em>Chirag</em></div>
+        <div><strong>Date:</strong> September 27, 2026</div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

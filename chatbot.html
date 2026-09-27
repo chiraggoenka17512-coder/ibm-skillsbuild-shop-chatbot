@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseBot | Dedicated AI Shop Assistant (IBM SkillsBuild)</title>
+  <meta name="description" content="Dedicated full-screen AI Customer Support Chatbot for UrbanPulse Outfitters - IBM SkillsBuild Project-Based Activity.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Standalone Fullscreen Chatbot Page Layout */
+    body.standalone-chatbot-page {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle at 10% 20%, rgba(2, 132, 199, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 90% 80%, rgba(79, 70, 229, 0.06) 0%, transparent 50%),
+                  var(--bg-primary);
+      overflow: hidden;
+    }
+
+    .standalone-nav {
+      height: 60px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 20;
+    }
+
+    .standalone-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .standalone-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-return-shop {
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-medium);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-return-shop:hover {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+    }
+
+    .standalone-main-container {
+      flex: 1;
+      display: flex;
+      max-width: 1100px;
+      width: 100%;
+      margin: 20px auto;
+      height: calc(100vh - 100px);
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    /* Left Sidebar: Quick Path Guides & Store Info */
+    .chatbot-sidebar {
+      width: 320px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+    }
+
+    .sidebar-section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--brand-primary);
+      margin-bottom: 8px;
+    }
+
+    .path-shortcut-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .path-shortcut-btn:hover {
+      background: var(--brand-primary);
+      color: #ffffff;
+      border-color: var(--brand-primary);
+    }
+
+    .sidebar-meta-card {
+      background: rgba(2, 132, 199, 0.05);
+      border: 1px solid rgba(2, 132, 199, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .sidebar-meta-card strong {
+      color: var(--brand-primary);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Fullscreen Chatbot Frame */
+    .fullscreen-chat-card {
+      flex: 1;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .standalone-chat-window {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      box-shadow: none !important;
+      border: none !important;
+      margin-bottom: 0 !important;
+      transform: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
+    @media (max-width: 768px) {
+      .chatbot-sidebar {
+        display: none;
+      }
+      .standalone-main-container {
+        margin: 0;
+        height: calc(100vh - 60px);
+        padding: 0;
+      }
+      .fullscreen-chat-card {
+        border-radius: 0;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body class="standalone-chatbot-page">
+
+  <!-- Top Bar -->
+  <header class="standalone-nav">
+    <div class="standalone-brand">
+      <div class="logo-icon" style="width: 32px; height: 32px;">
+        🤖
+      </div>
+      <div>
+        <span>PulseBot</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500;"> | AI Shop Assistant</span>
+      </div>
+    </div>
+
+    <div class="standalone-nav-actions">
+      <a href="index.html" class="btn-return-shop">
+        🛍️ Open Full Shop Website
+      </a>
+      <button id="viewProjectSheetBtn" class="pill-btn-small" style="background: var(--brand-primary); color: #ffffff;">
+        📋 Project Sheet
+      </button>
+      <button id="themeToggleBtn" class="icon-btn" style="width: 32px; height: 32px;" title="Toggle theme">
+        🌓
+      </button>
+    </div>
+  </header>
+
+  <div class="standalone-main-container">
+    <!-- Left Navigation / Guidance Sidebar -->
+    <aside class="chatbot-sidebar">
+      <div>
+        <div class="sidebar-section-title">Verified Conversation Paths</div>
+        <button class="path-shortcut-btn" onclick="window.PulseChat.triggerIntent('products')">
+          <span>👕</span> Product Information & Sizing
+        </button>
+        <button class="path-shortcut-btn" onclick="window.PulseChat.triggerIntent('timings')">
+          <span>🕒</span> Store Hours & Locations
+        </button>
+        <button class="path-shortcut-btn" onclick="window.PulseChat.triggerIntent('offers')">
+          <span>💰</span> Active Offers & Coupons
+        </button>
+        <button class="path-shortcut-btn" onclick="window.PulseChat.triggerIntent('track')">
+          <span>📦</span> Order Tracking Simulator
+        </button>
+        <button class="path-shortcut-btn" onclick="window.PulseChat.triggerIntent('contact')">
+          <span>📞</span> Contact Customer Support
+        </button>
+      </div>
+
+      <div class="sidebar-meta-card">
+        <strong>Fictional Shop:</strong>
+        UrbanPulse Outfitters (Sustainable Conscious Apparel)
+      </div>
+
+      <div class="sidebar-meta-card">
+        <strong>IBM SkillsBuild Compliance:</strong>
+        • 5 conversation paths included<br>
+        • Minimum flow implemented<br>
+        • Privacy safe: zero PII collection
+      </div>
+
+      <div style="margin-top: auto; font-size: 0.75rem; color: var(--text-muted); text-align: center;">
+        Submitted by Chirag &bull; Grade 10
+      </div>
+    </aside>
+
+    <!-- Main Chat Window Area -->
+    <div class="fullscreen-chat-card">
+      <div id="chatWindow" class="chat-window standalone-chat-window" role="dialog" aria-label="PulseBot Dedicated Chatbot">
+        
+        <!-- Chat Header -->
+        <div class="chat-header">
+          <div class="bot-profile">
+            <div class="bot-avatar">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="12" x="3" y="6" rx="2"></rect>
+                <circle cx="9" cy="12" r="1"></circle>
+                <circle cx="15" cy="12" r="1"></circle>
+                <path d="M12 2v4"></path>
+                <path d="M8 18v2"></path>
+                <path d="M16 18v2"></path>
+              </svg>
+              <span class="avatar-online-dot"></span>
+            </div>
+            <div class="bot-identity">
+              <h1 id="chatBotTitle" class="bot-title" style="font-size: 1rem; margin: 0;">PulseBot Assistant</h1>
+              <span class="bot-subtitle">Official AI Customer Support & Shopping Concierge</span>
+            </div>
+          </div>
+
+          <div class="chat-header-controls">
+            <!-- Audio chime toggle -->
+            <button id="soundToggleBtn" class="chat-ctrl-btn" title="Toggle sound alerts" aria-label="Toggle sound">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+            </button>
+            
+            <!-- Restart Chat -->
+            <button id="restartChatBtn" class="chat-ctrl-btn" title="Restart conversation" aria-label="Reset chat">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Privacy Notice -->
+        <div class="chat-privacy-notice">
+          <span>🔒 Safe AI demo: Please do not submit real passwords or sensitive personal details.</span>
+        </div>
+
+        <!-- Messages Scroll Container -->
+        <div id="chatMessages" class="chat-messages" role="log" aria-live="polite">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <!-- Typing Indicator -->
+        <div id="typingIndicator" class="typing-indicator hidden" aria-hidden="true">
+          <div class="dot-typing"></div>
+          <div class="dot-typing"></div>
+          <div class="dot-typing"></div>
+          <span class="typing-text">PulseBot is thinking...</span>
+        </div>
+
+        <!-- Quick Reply Chips -->
+        <div id="chatChipsContainer" class="chat-chips-container" role="group" aria-label="Quick options">
+          <!-- Dynamically populated chips -->
+        </div>
+
+        <!-- Input Form -->
+        <form id="chatForm" class="chat-input-form" onsubmit="event.preventDefault();">
+          <input 
+            type="text" 
+            id="chatInput" 
+            class="chat-input" 
+            placeholder="Type your question (e.g. 'store hours', 'discounts', 'track ORD-101')..." 
+            autocomplete="off"
+            aria-label="Type your message"
+          >
+          <button type="submit" id="chatSendBtn" class="chat-send-btn" aria-label="Send message">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden elements needed for app.js backwards-compat -->
+  <div style="display: none;">
+    <button id="chatToggleBtn"></button>
+    <button id="closeChatBtn"></button>
+    <button id="headerChatLaunchBtn"></button>
+    <button id="heroOpenChatBtn"></button>
+    <span id="unreadBadge"></span>
+    <button id="cartToggleBtn"></button>
+    <button id="closeCartBtn"></button>
+    <div id="cartDrawer" class="hidden"></div>
+    <div id="cartModalBackdrop" class="hidden"></div>
+    <div id="productGrid"></div>
+  </div>
+
+  <!-- IBM SkillsBuild Project Modal -->
+  <div id="projectModalBackdrop" class="modal-backdrop hidden" aria-hidden="true"></div>
+  <div id="projectModal" class="project-modal hidden" role="dialog" aria-labelledby="projectModalHeading" aria-modal="true">
+    <div class="project-modal-header">
+      <div class="pm-title-group">
+        <span class="pm-tag">IBM SkillsBuild | Project-Based Activity</span>
+        <h2 id="projectModalHeading">Shop Assistant Chatbot with Website - Project Dossier</h2>
+      </div>
+      <button id="closeProjectModalBtn" class="close-btn" aria-label="Close Project Sheet">✕</button>
+    </div>
+    <div class="project-modal-body">
+      <div class="dossier-card">
+        <h3>📝 Student Details</h3>
+        <p><strong>Student Name:</strong> Chirag | <strong>Class & Section:</strong> Grade 10 - Computer Science</p>
+        <p><strong>Fictional Shop:</strong> UrbanPulse Outfitters | <strong>Bot Name:</strong> PulseBot</p>
+      </div>
+      <div class="dossier-card declaration-card">
+        <h3>📋 Student Declaration</h3>
+        <p>☑ 1. Registered on IBM SkillsBuild. [Yes]</p>
+        <p>☑ 2. Completed given project-based activity. [Yes]</p>
+        <p>☑ 3. Verified all 5 paths and ready for submission. [Yes]</p>
+      </div>
+      <div class="modal-footer-actions">
+        <button class="primary-cta-btn" onclick="window.print()">🖨️ Print Sheet</button>
+        <button class="secondary-cta-btn" onclick="document.getElementById('closeProjectModalBtn').click()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast-notification hidden" role="alert">
+    <span id="toastMessage"></span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UrbanPulse Outfitters - Contemporary Sustainable Fashion with PulseBot AI Shop Assistant for IBM SkillsBuild Project-Based Activity.">
+  <meta name="author" content="IBM SkillsBuild Student">
+  <title>UrbanPulse Outfitters | Shop Assistant Chatbot (IBM SkillsBuild Project)</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar" role="region" aria-label="Special announcements">
+    <div class="container announcement-content">
+      <span class="announcement-badge">IBM SkillsBuild Project Activity</span>
+      <p class="announcement-text">
+        🎉 Welcome to UrbanPulse! Use code <strong>WELCOME15</strong> for 15% off. Need help? Talk to <strong>PulseBot</strong> below!
+      </p>
+      <div class="announcement-actions">
+        <button id="viewProjectSheetBtn" class="pill-btn-small" aria-label="View Project Submission Dossier">
+          📋 Project Activity Sheet
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="main-header" role="banner">
+    <div class="container header-container">
+      <div class="brand-logo">
+        <a href="#home" class="logo-link">
+          <div class="logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+              <path d="M3 6h18"></path>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="brand-name">UrbanPulse</span>
+            <span class="brand-sub">Outfitters & Lifestyle</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav-links" role="navigation" aria-label="Primary Navigation">
+        <a href="#products" class="nav-link active">Shop Products</a>
+        <a href="#timings" class="nav-link">Store Hours</a>
+        <a href="#offers" class="nav-link">Offers & Deals</a>
+        <a href="#support" class="nav-link">Customer Help</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle light or dark theme" title="Toggle theme">
+          <svg id="themeIconSun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+
+        <!-- Cart Button -->
+        <button id="cartToggleBtn" class="cart-btn" aria-label="View Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="21" r="1"></circle>
+            <circle cx="19" cy="21" r="1"></circle>
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+          </svg>
+          <span class="cart-label">Bag</span>
+          <span id="cartCountBadge" class="cart-badge">0</span>
+        </button>
+
+        <!-- Chat Launch Header CTA -->
+        <button id="headerChatLaunchBtn" class="primary-btn-header" aria-label="Open PulseBot Assistant">
+          <span class="bot-status-dot"></span>
+          <span>Ask PulseBot</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main id="main-content">
+    <section id="home" class="hero-section" aria-labelledby="hero-heading">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-pill">
+            <span class="pulse-indicator"></span>
+            <span>Sustainable Conscious Apparel &bull; 2026 Collection</span>
+          </div>
+          <h1 id="hero-heading" class="hero-title">
+            Conscious Style for <span class="gradient-text">Modern Everyday Living</span>.
+          </h1>
+          <p class="hero-description">
+            Discover ethically crafted streetwear, premium outerwear, and lifestyle essentials. Have questions about sizes, delivery, or ongoing sales? Our smart AI assistant <strong>PulseBot</strong> is here 24/7!
+          </p>
+          <div class="hero-cta-group">
+            <a href="#products" class="primary-cta-btn">
+              Explore Collection
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </a>
+            <button id="heroOpenChatBtn" class="secondary-cta-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Chat with Shop Assistant
+            </button>
+          </div>
+
+          <!-- Feature Highlights -->
+          <div class="hero-highlights">
+            <div class="highlight-item">
+              <div class="highlight-icon">🌿</div>
+              <div>
+                <strong>100% Eco-Certified</strong>
+                <p>Organic cotton & recycled fibres</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">⚡</div>
+              <div>
+                <strong>Free Express Delivery</strong>
+                <p>On orders above $50</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">🔄</div>
+              <div>
+                <strong>14-Day Free Returns</strong>
+                <p>No questions asked exchange</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="glass-card hero-preview-card">
+            <div class="preview-card-header">
+              <div class="chat-header-sample">
+                <div class="avatar-small">🤖</div>
+                <div>
+                  <div class="bot-name-small">PulseBot Assistant</div>
+                  <div class="bot-online-text">Ready to help in real-time</div>
+                </div>
+              </div>
+              <span class="active-badge">Online</span>
+            </div>
+            <div class="sample-chat-bubbles">
+              <div class="sample-bubble bot">
+                👋 Hello! Welcome to UrbanPulse Outfitters. Looking for product info, store timings, or deals?
+              </div>
+              <div class="sample-bubble user">
+                What are your weekend store hours?
+              </div>
+              <div class="sample-bubble bot">
+                🏬 Our Downtown Store is open Saturday & Sunday from <strong>10:00 AM to 10:00 PM</strong>. Need directions or pickup details?
+              </div>
+            </div>
+            <div class="preview-actions">
+              <button class="sample-chip" onclick="window.PulseChat.triggerIntent('offers')">💰 Check Active Offers</button>
+              <button class="sample-chip" onclick="window.PulseChat.triggerIntent('track')">📦 Track an Order</button>
+              <button class="sample-chip" onclick="window.PulseChat.triggerIntent('products')">👕 Sizing Advice</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Showcase Section -->
+    <section id="products" class="products-section" aria-labelledby="products-heading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Featured Catalogue</div>
+          <h2 id="products-heading" class="section-title">Curated Everyday Wardrobe</h2>
+          <p class="section-subtitle">
+            Premium, sustainable materials engineered for comfort. Ask PulseBot for sizing help or material details anytime!
+          </p>
+
+          <!-- Category Filters -->
+          <div class="category-filters" role="tablist" aria-label="Filter products">
+            <button class="filter-btn active" data-category="all" role="tab" aria-selected="true">All Items</button>
+            <button class="filter-btn" data-category="tops" role="tab" aria-selected="false">Tops & Hoodies</button>
+            <button class="filter-btn" data-category="outerwear" role="tab" aria-selected="false">Outerwear</button>
+            <button class="filter-btn" data-category="footwear" role="tab" aria-selected="false">Footwear</button>
+            <button class="filter-btn" data-category="accessories" role="tab" aria-selected="false">Accessories</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Product Grid -->
+        <div id="productGrid" class="product-grid">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Store Timings & Pickup Location Section -->
+    <section id="timings" class="timings-section" aria-labelledby="timings-heading">
+      <div class="container">
+        <div class="timings-grid">
+          <div class="timings-info-card">
+            <div class="section-tag">Visit Our Flagship Store</div>
+            <h2 id="timings-heading" class="section-title">Store Hours & Locations</h2>
+            <p class="section-subtitle">
+              Experience the fabric, try our smart fitting rooms, or collect your online orders with zero shipping wait time.
+            </p>
+
+            <div class="schedule-table">
+              <div class="schedule-row">
+                <span class="day-col">Monday — Friday</span>
+                <span class="time-col">10:00 AM – 9:00 PM</span>
+                <span class="status-col open">Open Today</span>
+              </div>
+              <div class="schedule-row highlight">
+                <span class="day-col">Saturday</span>
+                <span class="time-col">10:00 AM – 10:00 PM</span>
+                <span class="status-col weekend">Extended Hours</span>
+              </div>
+              <div class="schedule-row highlight">
+                <span class="day-col">Sunday</span>
+                <span class="time-col">11:00 AM – 8:00 PM</span>
+                <span class="status-col weekend">Weekend Hours</span>
+              </div>
+              <div class="schedule-row">
+                <span class="day-col">National Holidays</span>
+                <span class="time-col">12:00 PM – 6:00 PM</span>
+                <span class="status-col holiday">Holiday Schedule</span>
+              </div>
+            </div>
+
+            <div class="pickup-perks">
+              <div class="perk-box">
+                <div class="perk-icon">🚗</div>
+                <div>
+                  <h4>Free In-Store Pickup</h4>
+                  <p>Ready in as little as 2 hours after placing order online.</p>
+                </div>
+              </div>
+              <div class="perk-box">
+                <div class="perk-icon">📍</div>
+                <div>
+                  <h4>Flagship Location</h4>
+                  <p>742 Evergreen Plaza, Suite 400, Central Metro Station Gate 3.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timings-chat-assist-card">
+            <div class="assist-card-inner">
+              <div class="badge-accent">Chatbot Quick Action</div>
+              <h3>Have a question about opening times?</h3>
+              <p>Our assistant can tell you holiday hours, check in-store stock, or arrange an in-person styling appointment.</p>
+              
+              <div class="quick-timing-prompts">
+                <button class="quick-prompt-btn" onclick="window.PulseChat.sendMessage('What are your store hours today?')">
+                  🕒 "What are your store hours today?"
+                </button>
+                <button class="quick-prompt-btn" onclick="window.PulseChat.sendMessage('Where is your shop located?')">
+                  📍 "Where is your shop located?"
+                </button>
+                <button class="quick-prompt-btn" onclick="window.PulseChat.sendMessage('How does in-store pickup work?')">
+                  📦 "How does in-store pickup work?"
+                </button>
+              </div>
+
+              <div class="support-direct">
+                <span>Direct Store Phone:</span>
+                <strong>+1 (800) 555-PULSE</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Promotional Offers Section -->
+    <section id="offers" class="offers-section" aria-labelledby="offers-heading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Save on Your Purchase</div>
+          <h2 id="offers-heading" class="section-title">Current Offers & Promotional Codes</h2>
+          <p class="section-subtitle">
+            Apply these verified coupon codes at checkout or ask PulseBot to apply the best combination for your cart!
+          </p>
+        </div>
+
+        <div class="offers-grid">
+          <!-- Offer Card 1 -->
+          <div class="offer-card">
+            <div class="offer-tag">New Customer</div>
+            <div class="offer-discount">15% OFF</div>
+            <div class="offer-title">Welcome First Order</div>
+            <p class="offer-desc">Enjoy 15% off any full-price items on your inaugural order.</p>
+            <div class="coupon-box">
+              <code>WELCOME15</code>
+              <button class="copy-btn" onclick="window.copyCoupon('WELCOME15', this)">Copy</button>
+            </div>
+          </div>
+
+          <!-- Offer Card 2 -->
+          <div class="offer-card popular">
+            <div class="popular-ribbon">Most Popular</div>
+            <div class="offer-tag">Student Special</div>
+            <div class="offer-discount">20% OFF</div>
+            <div class="offer-title">IBM SkillsBuild & Student Discount</div>
+            <p class="offer-desc">Verified students and educators get a flat 20% discount on all apparel.</p>
+            <div class="coupon-box">
+              <code>STUDENT20</code>
+              <button class="copy-btn" onclick="window.copyCoupon('STUDENT20', this)">Copy</button>
+            </div>
+          </div>
+
+          <!-- Offer Card 3 -->
+          <div class="offer-card">
+            <div class="offer-tag">Shipping Perk</div>
+            <div class="offer-discount">FREE SHIP</div>
+            <div class="offer-title">Express Shipping Waiver</div>
+            <p class="offer-desc">Free carbon-neutral courier delivery across all orders over $50.</p>
+            <div class="coupon-box">
+              <code>FREESHIP50</code>
+              <button class="copy-btn" onclick="window.copyCoupon('FREESHIP50', this)">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support & FAQs Section -->
+    <section id="support" class="support-section" aria-labelledby="support-heading">
+      <div class="container">
+        <div class="support-box">
+          <div class="support-text-col">
+            <div class="section-tag">Customer Care</div>
+            <h2 id="support-heading" class="section-title">We're Here Whenever You Need Us</h2>
+            <p class="section-subtitle">
+              Whether you need to check return eligibility, modify an existing delivery address, or learn about our supply chain transparency, PulseBot is equipped to assist you.
+            </p>
+            <div class="contact-details">
+              <div class="contact-item">
+                <span class="c-icon">📧</span>
+                <div>
+                  <strong>Email Support</strong>
+                  <p>support@urbanpulse-shop.example</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="c-icon">📞</span>
+                <div>
+                  <strong>Phone Line (Toll-Free)</strong>
+                  <p>+1 (800) 785-7326 (9 AM - 8 PM EST)</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="c-icon">🛡️</span>
+                <div>
+                  <strong>Privacy First</strong>
+                  <p>We do not store or collect sensitive personal data.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-col">
+            <h3>Frequently Asked Questions</h3>
+            <div class="accordion-list">
+              <details class="faq-item" open>
+                <summary>How can I track my shipment?</summary>
+                <div class="faq-answer">
+                  You can use our built-in chatbot! Simply open PulseBot and type or click <strong>Track Order</strong>. Enter sample order IDs like <code>ORD-101</code> or <code>ORD-202</code> to view live simulated delivery tracking!
+                </div>
+              </details>
+              <details class="faq-item">
+                <summary>What is your return & exchange policy?</summary>
+                <div class="faq-answer">
+                  We offer a 14-day hassle-free return window for unworn items with original tags intact. Exchanges are always 100% free of charge!
+                </div>
+              </details>
+              <details class="faq-item">
+                <summary>Are your clothing items ethically sourced?</summary>
+                <div class="faq-answer">
+                  Yes, 100% of our collection uses GOTS-certified organic cotton, OEKO-TEX non-toxic dyes, and recycled polyester blends.
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer" role="contentinfo">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <div class="footer-brand">UrbanPulse Outfitters</div>
+        <p>A fictional sustainable clothing & lifestyle shop created for the <strong>IBM SkillsBuild Project-Based Activity: Shop Assistant Chatbot with Website</strong>.</p>
+        <div class="academic-disclaimer">
+          🎓 Built for academic demonstration. No actual commercial transactions or personal data collection takes place.
+        </div>
+      </div>
+
+      <div class="footer-links-group">
+        <div class="f-col">
+          <strong>Chatbot Paths</strong>
+          <a href="#" onclick="window.PulseChat.triggerIntent('products'); return false;">Product Information</a>
+          <a href="#" onclick="window.PulseChat.triggerIntent('timings'); return false;">Store Timings</a>
+          <a href="#" onclick="window.PulseChat.triggerIntent('offers'); return false;">Offers & Discounts</a>
+          <a href="#" onclick="window.PulseChat.triggerIntent('track'); return false;">Order & Delivery</a>
+          <a href="#" onclick="window.PulseChat.triggerIntent('contact'); return false;">Contact & Support</a>
+        </div>
+        <div class="f-col">
+          <strong>Project Resources</strong>
+          <a href="#" onclick="document.getElementById('viewProjectSheetBtn').click(); return false;">Project Activity Sheet</a>
+          <a href="#home">Back to Top</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container copyright-bar">
+        <span>&copy; 2026 UrbanPulse Outfitters &bull; IBM SkillsBuild Project-Based Activity</span>
+        <span class="status-indicator-live"><span class="dot"></span> Chatbot Status: Active & Operational</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- FLOATING CHATBOT WIDGET (PulseBot)                      -->
+  <!-- ======================================================== -->
+  <div id="chatWidgetContainer" class="chat-widget-container">
+    
+    <!-- Collapsed Toggle Button -->
+    <button id="chatToggleBtn" class="chat-toggle-btn" aria-label="Open Shop Assistant Chatbot" aria-expanded="false">
+      <div class="chat-toggle-icon">
+        <!-- Bot SVG Icon -->
+        <svg class="icon-open" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <!-- Close SVG Icon -->
+        <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </div>
+      <span class="chat-toggle-text">Need Help? <strong>Chat with us</strong></span>
+      <span id="unreadBadge" class="unread-badge">1</span>
+    </button>
+
+    <!-- Expanded Chat Window -->
+    <div id="chatWindow" class="chat-window hidden" role="dialog" aria-labelledby="chatBotTitle" aria-modal="false">
+      
+      <!-- Chat Header -->
+      <div class="chat-header">
+        <div class="bot-profile">
+          <div class="bot-avatar">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="12" x="3" y="6" rx="2"></rect>
+              <circle cx="9" cy="12" r="1"></circle>
+              <circle cx="15" cy="12" r="1"></circle>
+              <path d="M12 2v4"></path>
+              <path d="M8 18v2"></path>
+              <path d="M16 18v2"></path>
+            </svg>
+            <span class="avatar-online-dot"></span>
+          </div>
+          <div class="bot-identity">
+            <h3 id="chatBotTitle" class="bot-title">PulseBot Assistant</h3>
+            <span class="bot-subtitle">UrbanPulse Official AI Support</span>
+          </div>
+        </div>
+
+        <div class="chat-header-controls">
+          <!-- Audio chime toggle -->
+          <button id="soundToggleBtn" class="chat-ctrl-btn" title="Toggle audio sound effects" aria-label="Toggle sound">
+            <svg id="soundIconOn" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+          
+          <!-- Restart Chat -->
+          <button id="restartChatBtn" class="chat-ctrl-btn" title="Restart conversation flow" aria-label="Reset chat">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+          </button>
+
+          <!-- Minimize Window -->
+          <button id="closeChatBtn" class="chat-ctrl-btn" title="Minimize chat window" aria-label="Close chat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Privacy Safe Notice Banner (Fulfills IBM rubric: Avoid collecting real personal information) -->
+      <div class="chat-privacy-notice">
+        <span>🔒 Safe AI demo: Please do not submit real passwords or sensitive personal details.</span>
+      </div>
+
+      <!-- Chat Messages Scroll Container -->
+      <div id="chatMessages" class="chat-messages" role="log" aria-live="polite">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Typing Indicator -->
+      <div id="typingIndicator" class="typing-indicator hidden" aria-hidden="true">
+        <div class="dot-typing"></div>
+        <div class="dot-typing"></div>
+        <div class="dot-typing"></div>
+        <span class="typing-text">PulseBot is thinking...</span>
+      </div>
+
+      <!-- Quick Reply Action Chips Container -->
+      <div id="chatChipsContainer" class="chat-chips-container" role="group" aria-label="Quick options">
+        <!-- Dynamically populated chips -->
+      </div>
+
+      <!-- Chat Input Area -->
+      <form id="chatForm" class="chat-input-form" onsubmit="event.preventDefault();">
+        <input 
+          type="text" 
+          id="chatInput" 
+          class="chat-input" 
+          placeholder="Ask a question (e.g., 'store timings', 'discounts', 'track order')..." 
+          autocomplete="off"
+          aria-label="Type your message to PulseBot"
+        >
+        <button type="submit" id="chatSendBtn" class="chat-send-btn" aria-label="Send message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- SHOPPING CART SLIDE-OVER DRAWER                         -->
+  <!-- ======================================================== -->
+  <div id="cartModalBackdrop" class="modal-backdrop hidden" aria-hidden="true"></div>
+  <aside id="cartDrawer" class="cart-drawer hidden" aria-labelledby="cartDrawerTitle" role="dialog" aria-modal="true">
+    <div class="cart-drawer-header">
+      <h3 id="cartDrawerTitle">Your Shopping Bag (<span id="cartDrawerCount">0</span>)</h3>
+      <button id="closeCartBtn" class="close-btn" aria-label="Close cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div id="cartItemsList" class="cart-items-list">
+      <!-- Items dynamically populated -->
+      <div class="empty-cart-state">
+        <div class="empty-cart-icon">🛍️</div>
+        <h4>Your bag is empty</h4>
+        <p>Explore our organic collection or ask PulseBot for recommendations!</p>
+      </div>
+    </div>
+
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line">
+        <span>Subtotal</span>
+        <strong id="cartSubtotalText">$0.00</strong>
+      </div>
+      <div class="cart-summary-line discount-line hidden" id="cartDiscountRow">
+        <span>Discount applied (<span id="appliedCodeText"></span>)</span>
+        <strong id="cartDiscountText" class="discount-val">-$0.00</strong>
+      </div>
+      <div class="cart-summary-line total-line">
+        <span>Estimated Total</span>
+        <strong id="cartTotalText">$0.00</strong>
+      </div>
+
+      <div class="cart-coupon-input-group">
+        <input type="text" id="cartCouponInput" placeholder="Enter coupon (e.g. WELCOME15)" uppercase>
+        <button id="applyCouponBtn" class="pill-btn-small">Apply</button>
+      </div>
+
+      <button id="checkoutBtn" class="checkout-btn" onclick="window.PulseShop.simulateCheckout()">
+        Proceed to Simulated Checkout
+      </button>
+      <p class="cart-mock-note">💡 Demo checkout - No real credit card or payment required.</p>
+    </div>
+  </aside>
+
+  <!-- ======================================================== -->
+  <!-- IBM SKILLSBUILD PROJECT SUBMISSION DOSSIER MODAL        -->
+  <!-- ======================================================== -->
+  <div id="projectModalBackdrop" class="modal-backdrop hidden" aria-hidden="true"></div>
+  <div id="projectModal" class="project-modal hidden" role="dialog" aria-labelledby="projectModalHeading" aria-modal="true">
+    <div class="project-modal-header">
+      <div class="pm-title-group">
+        <span class="pm-tag">IBM SkillsBuild | Project-Based Activity</span>
+        <h2 id="projectModalHeading">Shop Assistant Chatbot with Website - Project Dossier</h2>
+      </div>
+      <button id="closeProjectModalBtn" class="close-btn" aria-label="Close Project Sheet">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="project-modal-body">
+      <!-- Student Info Form Section -->
+      <div class="dossier-card student-info-card">
+        <h3>📝 Student Details & Activity Info</h3>
+        <div class="form-row-2col">
+          <div class="form-group">
+            <label for="studentNameInput">Student Name:</label>
+            <input type="text" id="studentNameInput" placeholder="Enter your full name" value="Chirag">
+          </div>
+          <div class="form-group">
+            <label for="classSectionInput">Class and Section:</label>
+            <input type="text" id="classSectionInput" placeholder="e.g. Class 10 - Section B" value="Grade 10 - Computer Science">
+          </div>
+        </div>
+        <div class="form-row-2col">
+          <div class="form-group">
+            <label>Fictional Shop Name:</label>
+            <input type="text" value="UrbanPulse Outfitters (Sustainable Clothing Store)" readonly>
+          </div>
+          <div class="form-group">
+            <label>Chatbot Name:</label>
+            <input type="text" value="PulseBot (Customer Support & Shopping Assistant)" readonly>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task Verification Matrix -->
+      <div class="dossier-card">
+        <h3>✅ Project Task Verification Matrix</h3>
+        <div class="table-responsive">
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Requirement (From IBM Sheet)</th>
+                <th>Implementation in this Project</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Fictional Shop Concept</strong></td>
+                <td>UrbanPulse Outfitters: Sustainable contemporary clothing & streetwear store</td>
+                <td><span class="status-pill green">Completed</span></td>
+              </tr>
+              <tr>
+                <td><strong>Welcome Customers</strong></td>
+                <td>PulseBot greets with animated welcome bubble, quick guide, and intuitive starting paths</td>
+                <td><span class="status-pill green">Completed</span></td>
+              </tr>
+              <tr>
+                <td><strong>Conversation Path 1: Product Information</strong></td>
+                <td>Catalogue overview, sizing recommendations, organic materials, fit tips, and mini cards</td>
+                <td><span class="status-pill green">Completed</span></td>
+              </tr>
+              <tr>
+                <td><strong>Conversation Path 2: Store Timings</strong></td>
+                <td>Weekday vs weekend timings, holiday schedule, flagship store location & 2-hr pickup</td>
+                <td><span class="status-pill green">Completed</span></td>
+              </tr>
+              <tr>
+                <td><strong>Conversation Path 3: Offers & Deals</strong></td>
+                <td>Active discount coupons (WELCOME15, STUDENT20, FREESHIP50), loyalty points info</td>
+                <td><span class="status-pill green">Completed</span></td>
+              </tr>
+              <tr>
+                <td><strong>Conversation Path 4: Order & Delivery Help</strong></td>
+                <td>Live simulated tracking ID query (ORD-101, ORD-202, ORD-303), delivery speeds, 14-day return policy</td>
+                <td><span class="status-pill green">Completed</span></td>
+              </tr>
+              <tr>
+                <td><strong>Conversation Path 5: Contact Us & Escalation</strong></td>
+                <td>Support helpline, official email, physical address, and friendly agent ticket escalation</td>
+                <td><span class="status-pill green">Completed</span></td>
+              </tr>
+              <tr>
+                <td><strong>Shop Webpage Demonstration</strong></td>
+                <td>Interactive responsive e-commerce web app with live product cards, cart, and floating chat widget</td>
+                <td><span class="status-pill green">Completed</span></td>
+              </tr>
+              <tr>
+                <td><strong>No Personal Data Collection</strong></td>
+                <td>Strict privacy design notice and local session simulator with zero sensitive storage</td>
+                <td><span class="status-pill green">Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Chatbot Flow Architecture Diagram -->
+      <div class="dossier-card">
+        <h3>🔄 Chatbot Flowchart Architecture</h3>
+        <p class="flow-desc">Demonstrates the minimum conversational flow: <em>Welcome &rarr; Needs Assessment &rarr; Show Choices &rarr; Provide Response &rarr; Offer Next Options &rarr; Wrap up / Contact Support</em>.</p>
+        <div class="flow-diagram-visual">
+          <div class="flow-step">
+            <div class="step-num">Step 1</div>
+            <div class="step-box start">👋 Welcome Message</div>
+            <span class="step-sub">Greets user & establishes friendly persona</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="step-num">Step 2</div>
+            <div class="step-box">🎯 Ask Needs / Choices</div>
+            <span class="step-sub">Presents 5 Quick Topic Chips + Free text input</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="step-num">Step 3</div>
+            <div class="step-box action">💡 Useful Response</div>
+            <span class="step-sub">Detailed info, tracking cards, sizing guides, coupons</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="step-num">Step 4</div>
+            <div class="step-box">🔀 Offer Another Option</div>
+            <span class="step-sub">Follow-up chips, back to main menu, related questions</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="step-num">Step 5</div>
+            <div class="step-box end">📞 Support / Goodbye</div>
+            <span class="step-sub">Toll-free helpline, callback ticket, positive closure</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Declaration Section -->
+      <div class="dossier-card declaration-card">
+        <h3>📋 Student Declaration</h3>
+        <div class="declaration-item">
+          <label class="custom-checkbox">
+            <input type="checkbox" id="decl1" checked>
+            <span class="checkmark"></span>
+            <span class="decl-text">1. I have registered on IBM SkillsBuild. [Yes]</span>
+          </label>
+        </div>
+        <div class="declaration-item">
+          <label class="custom-checkbox">
+            <input type="checkbox" id="decl2" checked>
+            <span class="checkmark"></span>
+            <span class="decl-text">2. I have completed the given project-based activity: "Shop Assistant Chatbot with Website". [Yes]</span>
+          </label>
+        </div>
+        <div class="declaration-item">
+          <label class="custom-checkbox">
+            <input type="checkbox" id="decl3" checked>
+            <span class="checkmark"></span>
+            <span class="decl-text">3. I have verified all 5 conversation paths and have prepared the submission URL / activity dossier for upload. [Yes]</span>
+          </label>
+        </div>
+        <div class="signature-line">
+          <span>Student Signature: <strong>Chirag (Digital Verification)</strong></span>
+          <span>Date: <span id="currentDateSpan">2026-09-27</span></span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="modal-footer-actions">
+        <button class="primary-cta-btn" onclick="window.print()">
+          🖨️ Print / Save Activity Sheet as PDF
+        </button>
+        <button class="secondary-cta-btn" onclick="document.getElementById('closeProjectModalBtn').click()">
+          Return to Live Shop
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toastNotification" class="toast-notification hidden" role="alert" aria-live="assertive">
+    <span id="toastIcon">✨</span>
+    <span id="toastMessage">Product added to bag!</span>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
