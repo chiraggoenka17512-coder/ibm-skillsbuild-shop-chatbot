@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; padding: 24px; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #131314; color: #e3e3e3; }
+  .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #2d2f31; padding-bottom: 16px; margin-bottom: 24px; }
+  .logo { font-size: 20px; font-weight: 600; color: #a8c7fa; display: flex; align-items: center; gap: 8px; }
+  .badge { background: #1e1f20; padding: 4px 12px; border-radius: 12px; font-size: 13px; color: #c4c7c5; }
+  .user-prompt { background: #1e1f20; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; border-left: 4px solid #a8c7fa; }
+  .prompt-label { font-size: 12px; text-transform: uppercase; color: #8e918f; margin-bottom: 6px; font-weight: 600; }
+  .response-card { background: #1e1f20; border-radius: 16px; padding: 24px; border: 1px solid #333538; }
+  .doc-title { font-size: 22px; font-weight: 700; color: #7cacf8; margin-top: 0; margin-bottom: 12px; }
+  .section-h { font-size: 16px; font-weight: 600; color: #c4c7c5; margin-top: 16px; margin-bottom: 8px; border-bottom: 1px solid #2d2f31; padding-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #2d2f31; }
+  th { background: #282a2c; color: #a8c7fa; }
+  ul { margin: 6px 0; padding-left: 20px; font-size: 13px; color: #c4c7c5; }
+  li { margin-bottom: 4px; }
+  .faq-q { font-weight: 600; color: #e3e3e3; margin-top: 6px; }
+  .faq-a { color: #c4c7c5; font-size: 13px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">✨ Google Gemini — Advanced Prompt Workspace</div>
+    <div class="badge">Model: Gemini 2.5 • Task: Fictional Shop Information Document</div>
+  </div>
+
+  <div class="user-prompt">
+    <div class="prompt-label">Prompt Entered:</div>
+    <div>"Create a detailed information document for a fictional clothing store named <strong>UrbanPulse Outfitters</strong>. Include shop description, 6-10 products with fictional prices, opening hours, location, contact details, payment methods, delivery information, return/exchange policy, offers, and at least 5 FAQs with answers. Use completely fictional information."</div>
+  </div>
+
+  <div class="response-card">
+    <h1 class="doc-title">📄 UrbanPulse Outfitters — Official Shop Information Document</h1>
+    <p style="color: #c4c7c5; font-size: 14px; margin-top: 0;"><strong>Category:</strong> Contemporary Sustainable Fashion & Conscious Streetwear | <strong>Flagship:</strong> 104 Eco-Fashion Avenue, Midtown Design District, New York, NY</p>
+    
+    <div class="section-h">1. Fictional Product Catalogue & Pricing</div>
+    <table>
+      <tr><th>Product Name</th><th>Category</th><th>Price (USD)</th><th>Eco Material Specs</th></tr>
+      <tr><td><strong>Urban Cloud Organic Hoodie</strong></td><td>Tops / Hoodies</td><td>$68.00</td><td>100% GOTS Certified Organic Cotton, 420 GSM Brushed Fleece</td></tr>
+      <tr><td><strong>MetroTech Waterproof Parka</strong></td><td>Outerwear</td><td>$145.00</td><td>100% Recycled Ripstop Nylon, DWR Water-Shield Membrane</td></tr>
+      <tr><td><strong>Essential Bamboo Heavyweight Tee</strong></td><td>Tops / Casual</td><td>$34.00</td><td>70% Organic Bamboo, 30% Ring-Spun Cotton (Thermo-regulating)</td></tr>
+      <tr><td><strong>AeroStride Recycled Sneakers</strong></td><td>Footwear</td><td>$92.00</td><td>Ocean-Bound Recycled PET Mesh, Vulcanized Natural Rubber Sole</td></tr>
+      <tr><td><strong>Canvas Explorer Daypack (18L)</strong></td><td>Accessories</td><td>$54.00</td><td>Weather-Treated Waxed Cotton Canvas, Padded 16" Laptop Sleeve</td></tr>
+      <tr><td><strong>Solar Shield Polarized Sunglasses</strong></td><td>Accessories</td><td>$42.00</td><td>Plant-Based Biodegradable Acetate, TAC Polarized UV400 Protection</td></tr>
+    </table>
+
+    <div class="section-h">2. Operating Timings, Shipping & Store Policies</div>
+    <ul>
+      <li><strong>Operating Hours:</strong> Monday – Friday 10:00 AM – 9:00 PM | Saturday 10:00 AM – 10:00 PM | Sunday 11:00 AM – 7:00 PM EST.</li>
+      <li><strong>Free Delivery & Shipping:</strong> Carbon-neutral courier delivery via EcoExpress. Free on orders above $50. Standard (3-5 days) is $4.99.</li>
+      <li><strong>Payment Methods:</strong> Visa, MasterCard, Apple Pay, Google Pay, and EcoPoints Rewards.</li>
+      <li><strong>Return Policy:</strong> 14-day hassle-free return/exchange guarantee on unworn items with tags attached.</li>
+      <li><strong>Active Coupons:</strong> <code>WELCOME15</code> (15% off first purchase), <code>STUDENT20</code> (20% student discount), <code>FREESHIP50</code> (Free delivery).</li>
+    </ul>
+
+    <div class="section-h">3. Frequently Asked Questions (FAQs)</div>
+    <div class="faq-q">Q1: How do I know my correct hoodie size?</div>
+    <div class="faq-a">A: Our hoodies feature a relaxed unisex streetwear fit. Check our chest guide: S (36-38"), M (39-41"), L (42-44"), XL (45-48"). Size up for an oversized silhouette.</div>
+    <div class="faq-q">Q2: Can I track my order online?</div>
+    <div class="faq-a">A: Yes! Type your order code (e.g., ORD-101, ORD-202, ORD-303) into PulseBot to view the live multi-step delivery status.</div>
+    <div class="faq-q">Q3: How do I contact customer support?</div>
+    <div class="faq-a">A: Reach us at support@urbanpulse.eco or call +1 (800) 555-PULSE during business hours.</div>
+  </div>
+</body>
+</html>
