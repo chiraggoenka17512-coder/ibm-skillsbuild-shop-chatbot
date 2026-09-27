@@ -12,7 +12,9 @@
 - **Fictional Shop Name:** UrbanPulse Outfitters (Sustainable Clothing & Lifestyle Store)
 - **Chatbot Name:** PulseBot (AI Shop Assistant & Support Agent)
 - **Project Location:** `C:\Users\Chirag\.gemini\antigravity-ide\scratch\shop-assistant-chatbot`
-- **Live Local Demo URL:** `http://localhost:8080` (or open `index.html` directly)
+- **Live Website URL:** https://b8a2ad3a02396a.lhr.life
+- **Direct Chatbot Access URL:** https://b8a2ad3a02396a.lhr.life/chatbot.html
+- **Local Fallback URL:** http://localhost:8080
 
 ---
 
